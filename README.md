@@ -46,6 +46,8 @@ Without Docker, teams would spend hours or days debugging these environment diff
 
 ### Refer `Output 1`
 
+-------------------------------------------
+
 
 ## What is Port Mapping ?
 
@@ -55,7 +57,21 @@ Without Docker, teams would spend hours or days debugging these environment diff
 - Syntax : docker run -p <host_port>:<container_port> image_name
 - Note: host port and container port no need to be same.
 
+-------------------------------------------
 
+### public docker image name (python app) : ashokit/python-flask-app
+
+docker pull ashokit/python-flask-app
+
+docker run -d -p 5000:5000 ashokit/python-flask-app
+
+### Python App URL : http://host-public-ip:host-port/
+
+Note: Host port number we need to enable in ec2-vm security group inbound rules to allow the traffic.
+
+### Refer `Output 2`
+
+-------------------------------------------
 
 =============
 Dockerfile
@@ -229,6 +245,69 @@ RUN echo 'hello from run instruction-2'
 CMD echo 'hi from cmd-1'
 CMD echo 'hi from cmd-2'
 
+
+### Refer `Output 3`
+
+-------------------------------------------
+
+================================================
+Dockerizing java web app (Without SpringBoot)
+================================================
+
+=> Java web app will be packaged as "war" file.
+
+Note: To package java application we will use 'Maven' as build tool.
+
+Note: war file will be created inside project "target" directory
+
+=> To deploy war file we need web server (Ex: tomcat)
+
+=> Inside tomcat server 'webapps' directory we need to place our war file to run the application.
+
+######### Dockerfile to run java web app ############
+
+FROM tomcat:latest
+
+EXPOSE 8080
+
+COPY target/app.war /usr/local/tomcat/webapps/
+
+==========
+Lab Task
+==========
+
+@@ Java Web App Git Repo : https://github.com/ashokitschool/maven-web-app.git
+
+Note: Connect with Docker VM using SSH client and execute below commands
+
+# install git client
+$ sudo yum install git -y
+
+# install maven s/w
+$ sudo yum install maven -y
+
+# clone project git repo
+$ git clone https://github.com/ashokitschool/maven-web-app.git
+
+# build maven project
+$ cd maven-web-app
+$ mvn clean package
+
+# check project war file
+$ ls -l target
+
+# build docker image
+$ docker build -t <img-name> .
+$ docker images
+
+# Create Docker Container
+$ docker run -d -p 8080:8080 <image-name>
+$ docker ps
+
+=> Enable host port number in security group inbound rules and access our application.
+
+		URL :: http://public-ip:8080/maven-web-app/
+
 -------------------------------------------
 
 # create docker image using dockerfile
@@ -236,3 +315,5 @@ $ docker build -t img-1 .
 
 # Run docker image to create docker container
 $ docker run img-1
+
+-------------------------------------------
