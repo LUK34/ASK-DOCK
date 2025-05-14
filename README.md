@@ -308,6 +308,67 @@ $ docker ps
 
 		URL :: http://public-ip:8080/maven-web-app/
 
+### Refer `Output 4`
+
+
+=========================================
+Dockerizing Java Spring Boot Application
+=========================================		
+
+=> Every JAVA SpringBoot application will be packaged as "jar" file only.
+
+Note: To package java application we will use 'Maven' as build tool.
+
+=> To run spring boot application we need to execute jar file.
+
+	Syntax : java -jar <jar-file-name>
+
+Note: When we run springboot application jar file then springboot will start tomcat server with 8080 port number (embedded tomcat server).
+
+######### Dockerfile to run SpringBoot App ############
+
+FROM openjdk:17
+
+COPY target/app.jar /usr/app/
+
+WORKDIR /usr/app/
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+==========
+Lab Task
+==========
+
+## Java Spring Boot App Git Repo : https://github.com/ashokitschool/spring-boot-docker-app.git
+
+Note: Connect with Docker VM using SSH client and execute below commands
+
+# clone project git repo
+$ git clone https://github.com/ashokitschool/spring-boot-docker-app.git
+
+# build maven project
+$ cd spring-boot-docker-app
+$ mvn clean package
+
+# check project war file
+$ ls -l target
+
+# build docker image
+$ docker build -t <img-name> .
+$ docker images
+
+# Create Docker Container
+$ docker run -d -p 9090:8080 <image-name>
+$ docker ps
+
+=> Enable host port number in security group inbound rules and access our application.
+
+		URL :: http://public-ip:9090/
+		
+### Refer `Output 5`
+
 -------------------------------------------
 
 # create docker image using dockerfile
