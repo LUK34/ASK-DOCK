@@ -369,6 +369,66 @@ $ docker ps
 		
 ### Refer `Output 5`
 
+=================================
+Dockerizing Python application 
+=================================		
+
+=> Python is a general purpose language.
+
+Note: It is also called as scripting language.
+
+=> We don't need any build tool for python applications.
+
+=> We can run python application code directley like below
+
+	Syntax : $ python app.py
+
+=> If we need any libraries for python (Ex: Flask) application development then we will mention them in "requirements.txt" file
+
+Note: We will use "python pip" s/w to download libraries configured in requirements.txt file.
+
+================== Python Flask App Dockerfile ==================
+
+FROM python:3.6
+
+COPY . /app/
+
+WORKDIR /app/
+
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+
+ENTRYPOINT ["python", "app.py"]
+
+==========
+Lab Task
+==========
+
+@@ Python Flask App Git Repo : https://github.com/ashokitschool/python-flask-docker-app.git
+
+
+# Clone git repo
+$ git clone https://github.com/ashokitschool/python-flask-docker-app.git
+
+# Go inside project directory
+$ cd python-flask-docker-app
+
+# Create docker image
+$ docker build -t ashokit/pyapp .
+$ docker images
+
+# Create container
+$ docker run -d -p 5000:5000 pyapp
+$ docker ps
+
+# Access application in browser
+URL : http://public-ip:5000/
+
+### Refer `Output 6`
+
+
+
 -------------------------------------------
 
 # create docker image using dockerfile
