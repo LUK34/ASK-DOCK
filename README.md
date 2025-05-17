@@ -298,6 +298,7 @@ EXPOSE 5000
 
 ENTRYPOINT ["python", "app.py"]
 
+-------------------------------------------
 
 ## Lab Task
 
@@ -322,6 +323,8 @@ $ docker ps
 URL : http://public-ip:5000/
 
 ### Refer `Output 6`
+
+-------------------------------------------
 
 ## Dockerfile for Angular Application
 
@@ -383,6 +386,8 @@ COPY --from=build /app/dist/angular_docker_app /usr/share/nginx/html
 
 ### Refer `Output 7`
 
+-------------------------------------------
+
 ### Dockerfile for React Application:
 
 FROM node:18.13.0 as build
@@ -436,7 +441,7 @@ EXPOSE 80
 
 ### For React Application refer `Output 8`
 
-
+-------------------------------------------
 
 
 
