@@ -399,9 +399,40 @@ RUN npm run build --prod
 
 FROM nginx:latest
 
-COPY --from=build app/build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
+
+###  Stage 1: Build the App
+- FROM node:18.13.0 as build
+- Uses the official Node.js 18.13.0 image
+- This stage is named build for reference in the next stage.
+
+### WORKDIR /app
+- Sets the working directory inside the container to /app.
+
+### COPY package*.json ./
+- Copies package.json and package-lock.json (if it exists) to the container. These files contain dependencies.
+
+### RUN npm install
+- Installs all dependencies listed in package.json.
+
+### COPY . .
+- Copies the rest of the project files into the container's /app directory.
+
+### RUN npm run build --prod
+- Builds the project in production mode.
+- This will usually generate a build (React) or dist (Angular) folder containing optimized static files (HTML, CSS, JS).
+
+### Stage 2: Serve with Nginx
+- FROM nginx:latest
+- Uses the official Nginx image to serve the static files.
+
+### COPY --from=build /app/build /usr/share/nginx/html
+- Copies the production-ready build output from the previous stage (build stage) to Nginx’s default public directory.
+
+### EXPOSE 80
+- Opens port 80 so Nginx can serve traffic on that port.
 
 ### For React Application refer `Output 8`
 
