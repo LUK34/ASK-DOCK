@@ -381,6 +381,10 @@ COPY --from=build /app/dist/angular_docker_app /usr/share/nginx/html
 - Copies the built Angular files from the build stage to Nginx's default web root directory.
 - These files are now ready to be served by Nginx.
 
+### Refer `Output 7`
+
+### For React Application refer `Output 8`
+
 
 
 
