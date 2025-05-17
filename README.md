@@ -383,6 +383,26 @@ COPY --from=build /app/dist/angular_docker_app /usr/share/nginx/html
 
 ### Refer `Output 7`
 
+### Dockerfile for React Application:
+
+FROM node:18.13.0 as build
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build --prod
+
+FROM nginx:latest
+
+COPY --from=build app/build /usr/share/nginx/html
+
+EXPOSE 80
+
 ### For React Application refer `Output 8`
 
 
