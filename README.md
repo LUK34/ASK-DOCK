@@ -388,7 +388,7 @@ COPY --from=build /app/dist/angular_docker_app /usr/share/nginx/html
 
 -------------------------------------------
 
-### Dockerfile for React Application:
+## Dockerfile for React Application:
 
 FROM node:18.13.0 as build
 
