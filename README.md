@@ -384,6 +384,14 @@ COPY --from=build /app/dist/angular_docker_app /usr/share/nginx/html
 - Copies the built Angular files from the build stage to Nginx's default web root directory.
 - These files are now ready to be served by Nginx.
 
+-**CMD:**
+git clone https://github.com/ashokitschool/angular_docker_app
+cd angular_docker_app
+docker build -t ngapp .
+docker run -d -p 80:80 ngapp
+docker system prune -a --volumes
+
+
 ### Refer `Output 7`
 
 -------------------------------------------
@@ -438,6 +446,14 @@ EXPOSE 80
 
 ### EXPOSE 80
 - Opens port 80 so Nginx can serve traffic on that port.
+
+-**CMD:**
+git clone https://github.com/ashokitschool/ReactJS_Docker_App
+cd ReactJS_Docker_App
+docker build -t ngapp .
+docker run -d -p 81:80 ngapp
+docker system prune -a --volumes
+
 
 ### For React Application refer `Output 8`
 
